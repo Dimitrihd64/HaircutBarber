@@ -31,8 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-
-
+                app:itemIconTint="@drawable/icono_seleccionado"
+                app:itemTextColor="@drawable/icono_seleccionado"
                 android:backgroundTint="@android:color/transparent"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_menu" />
