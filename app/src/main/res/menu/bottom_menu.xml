@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+
+        android:id="@+id/details"
+        android:icon="@drawable/baseline_api_24"
+        android:title="Detalles" />
+
+    <item
+        android:id="@+id/news"
+        android:title="Novedades"
+        android:icon="@drawable/baseline_new_releases_24"/>
+
+
+
+    <item
+        android:title=""/>
+
+
+    <item
+        android:id="@+id/haircuts"
+        android:title="Cortes"
+        android:icon="@drawable/baseline_cut_24" />
+    <item
+        android:id="@+id/products"
+        android:title="Productos"
+        android:icon="@drawable/baseline_store_24"
+        />
+
+
+</menu>
