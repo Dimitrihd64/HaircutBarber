@@ -8,7 +8,7 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@drawable/fondooscuro"
+    android:background="@drawable/fondoblanco"
     tools:context=".MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

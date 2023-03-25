@@ -1,5 +1,14 @@
 package com.example.haircutbarber3;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -9,21 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import com.example.haircutbarber3.databinding.ActivityMainBinding;
 import com.example.haircutbarber3.ui.Detalles.DetallesFragment;
 import com.example.haircutbarber3.ui.Novedades.NovedadesFragment;
 import com.example.haircutbarber3.ui.Servicios.CortesFragment;
 import com.example.haircutbarber3.ui.Servicios.ProductosFragment;
-import com.example.haircutbarber3.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -117,7 +116,9 @@ public class MainActivity extends AppCompatActivity  {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Esto funciona", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, FechaCitaActivity.class));
+
+
             }
         });
 
