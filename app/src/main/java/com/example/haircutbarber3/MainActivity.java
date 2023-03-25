@@ -1,9 +1,7 @@
 package com.example.haircutbarber3;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -11,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
@@ -125,33 +122,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void logIn() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View vistaDialog = LayoutInflater.from(this).inflate(R.layout.login_alert_dialog, null);
-        builder.setTitle("Iniciar Sesion");
-        builder.setView(vistaDialog);
-        builder.setCancelable(false);
-        builder.setNegativeButton("Cancelar", null);
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                TextView email = vistaDialog.findViewById(R.id.txtEmailAlertLogIn);
-                TextView password = vistaDialog.findViewById(R.id.txtPasswdAlertLogIn);
-
-                if (!email.getText().toString().isEmpty()&& !password.getText().toString().isEmpty()) {
-                    doLogIn(email,password);
-                }else{
-                    Toast.makeText(MainActivity.this, "Rellena los campos", Toast.LENGTH_SHORT).show();
-                }
-                
-
-
-            }
-
-
-        });
-        builder.create().show();
-
-
+        startActivity(new Intent(MainActivity.this, LogInActivity.class));
     }
 
     private void doLogIn(TextView email, TextView password) {
