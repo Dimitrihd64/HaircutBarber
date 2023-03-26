@@ -1,41 +1,19 @@
 package com.example.haircutbarber3.Models;
 
+import java.util.Date;
+
 public class Cita {
+    private final Date fecha;
 
-    int Dia;
-    int Mes;
-    int Año;
 
-    public Cita() {
+    public Cita(Date fecha) {
+        this.fecha = fecha;
+
     }
 
-    public Cita(int dia, int mes, int año) {
-        Dia = dia;
-        Mes = mes;
-        Año = año;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public int getDia() {
-        return Dia;
-    }
 
-    public void setDia(int dia) {
-        Dia = dia;
-    }
-
-    public int getMes() {
-        return Mes;
-    }
-
-    public void setMes(int mes) {
-        Mes = mes;
-    }
-
-    public int getAño() {
-        return Año;
-    }
-
-    public void setAño(int año) {
-        Año = año;
-    }
 }

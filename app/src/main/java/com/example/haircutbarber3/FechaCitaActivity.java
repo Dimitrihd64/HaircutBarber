@@ -1,5 +1,6 @@
 package com.example.haircutbarber3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -33,6 +34,15 @@ public class FechaCitaActivity extends AppCompatActivity {
                 int Año = binding.datepicker.getYear();
 
                 binding.lbFecha.setText("Dia: " + Dia + " Mes: " + Mes + " Año: " + Año);
+                Bundle bundle = new Bundle();
+
+                Intent intent = new Intent(FechaCitaActivity.this, HorasActivity.class);
+                bundle.putInt("Dia", Dia);
+                bundle.putInt("Mes", Mes);
+                bundle.putInt("Año", Año);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
 
             }
         });
