@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.databinding.ActivityMainBinding;
 import com.example.haircutbarber3.ui.Detalles.DetallesFragment;
 import com.example.haircutbarber3.ui.Novedades.NovedadesFragment;
@@ -26,11 +27,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity  {
 
     private ActivityMainBinding binding;
 
 
+    private ArrayList<Cita> citasList;
     private FirebaseDatabase database;
     private DatabaseReference refCitas;
     private FirebaseUser user;
@@ -44,17 +48,17 @@ public class MainActivity extends AppCompatActivity  {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        citasList = new ArrayList<>();
+
         //Firebase config
-        //userAuth=FirebaseAuth.getInstance();
+        userAuth = FirebaseAuth.getInstance();
 
-        //user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //database = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
-        //refCitas = database.getReference(user.getUid()).child("Citas");
-
+        database = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
 
 
-
+        ///la mierda de firebase va en los fragments
 
         setSupportActionBar(binding.toolbar);
 
