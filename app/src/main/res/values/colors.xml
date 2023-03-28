@@ -3,6 +3,7 @@
 <resources>
 
     <color name="yellow">#FF9800</color>
+    <color name="yellowbl">#FF6F22</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF9800</color>
     <color name="purple_700">#FF9800</color>

@@ -3,7 +3,7 @@ package com.example.haircutbarber3.Models;
 import java.util.Date;
 
 public class Cita {
-    private final Date fecha;
+    private Date fecha;
 
 
     public Cita(Date fecha) {
@@ -11,9 +11,14 @@ public class Cita {
 
     }
 
+    public Cita() {
+    }
+
     public Date getFecha() {
         return fecha;
     }
 
-
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
 }

@@ -16,6 +16,7 @@ public class FechaCitaActivity extends AppCompatActivity {
     ArrayList<Cita> citasList;
 
     ActivityFechaCitaBinding binding;
+    MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
