@@ -127,7 +127,13 @@ public class MainActivity extends AppCompatActivity  {
 
 
     private void logIn() {
-        startActivity(new Intent(MainActivity.this, LogInActivity.class));
+        LogInActivity logInActivity = new LogInActivity();
+        if (logInActivity.isLogin()) {
+            Toast.makeText(MainActivity.this, "Ya tienes una sesion iniciada", Toast.LENGTH_SHORT).show();
+        } else {
+            startActivity(new Intent(MainActivity.this, LogInActivity.class));
+        }
+
     }
 
     private void doLogIn(TextView email, TextView password) {
@@ -137,8 +143,8 @@ public class MainActivity extends AppCompatActivity  {
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
 

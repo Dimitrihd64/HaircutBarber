@@ -18,8 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class LogInActivity extends AppCompatActivity {
 
     ActivityLogInBinding binding;
-
+    private FirebaseUser user;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +53,14 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LogInActivity.this, SignUpActivity.class));
-                finish();
+
             }
         });
 
+    }
+
+    public Boolean isLogin() {
+        return user != null;
     }
 
     private void doLogIn(String email, String password) {
@@ -66,8 +71,9 @@ public class LogInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // El login es correcto, y ya tengo la instancia del user
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             Toast.makeText(LogInActivity.this, "Ha iniciado sesion correctamente", Toast.LENGTH_SHORT).show();
+
                         } else {
                             // El login ha fallado
                             Toast.makeText(LogInActivity.this, "Ha fallado el Login,Registate", Toast.LENGTH_SHORT).show();
