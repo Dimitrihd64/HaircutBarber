@@ -2,6 +2,7 @@ package com.example.haircutbarber3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity  {
         toggle.syncState();
 
 
-
         replaceFragment(new NovedadesFragment());
 
         binding.bottomNavigationView.setBackground(null);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.nav_settings:
                         Toast.makeText(MainActivity.this, "Esto va tambien", Toast.LENGTH_SHORT).show();
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
@@ -105,7 +105,13 @@ public class MainActivity extends AppCompatActivity  {
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.nav_login:
-                        logIn();
+                        if (comprobarSesion()) {
+                            FirebaseAuth.getInstance().signOut();
+
+                        } else {
+                            logIn();
+
+                        }
                 }
 
 
@@ -122,7 +128,26 @@ public class MainActivity extends AppCompatActivity  {
 
             }
         });
+    }
 
+    private boolean comprobarSesion() {
+        View headerView = binding.navView.getHeaderView(0);
+
+        TextView lbCorreo = headerView.findViewById(R.id.lbCorreoHeader);
+        Menu menu = binding.navView.getMenu();
+        MenuItem LogIn = menu.findItem(R.id.nav_login);
+
+        if (user != null) {
+            lbCorreo.setText(user.getEmail());
+            LogIn.setIcon(R.drawable.baseline_logout_24);
+            LogIn.setTitle("Cerrar Sesion");
+            return true;
+        } else {
+            lbCorreo.setText(R.string.app_name);
+            LogIn.setIcon(R.drawable.baseline_login_24);
+            LogIn.setTitle("Iniciar Sesion");
+            return false;
+        }
     }
 
 
@@ -132,6 +157,7 @@ public class MainActivity extends AppCompatActivity  {
             Toast.makeText(MainActivity.this, "Ya tienes una sesion iniciada", Toast.LENGTH_SHORT).show();
         } else {
             startActivity(new Intent(MainActivity.this, LogInActivity.class));
+            comprobarSesion();
         }
 
     }

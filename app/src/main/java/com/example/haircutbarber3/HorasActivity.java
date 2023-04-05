@@ -24,6 +24,9 @@ public class HorasActivity extends AppCompatActivity {
 
     ActivityHorasBinding binding;
     MainActivity mainActivity;
+    private List<Cita> citas;
+    private List<Date> horasDisponibles;
+    private List<Date> horasOcupadas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,27 @@ public class HorasActivity extends AppCompatActivity {
         int Mes = bundle.getInt("Mes");
         int Año = bundle.getInt("Año");
 
+        crearHoras(Dia, Mes, Año);
 
-        List<Cita> citas = new ArrayList<>();
 
-        List<Date> horasDisponibles = new ArrayList<>();
-        List<Date> horasOcupadas = new ArrayList<>();
+
+
+        /*Para el textView3(era la prueba de funcionamiento)
+        StringBuilder sb = new StringBuilder();
+        for (Date hora : horasOcupadas) {
+            sb.append(new SimpleDateFormat("HH:mm").format(hora)).append("\n");
+        }
+        binding.textView3.setText(sb.toString());
+        */
+
+
+    }
+
+    private void crearHoras(int Dia, int Mes, int Año) {
+        citas = new ArrayList<>();
+
+        horasDisponibles = new ArrayList<>();
+        horasOcupadas = new ArrayList<>();
 
 
         Date fechaDia = new Date(Dia, Mes, Año);
@@ -73,15 +92,11 @@ public class HorasActivity extends AppCompatActivity {
             cal.add(Calendar.MINUTE, 30);
         }
 
+        crearBotones();
 
-        /*Para el textView3(era la prueba de funcionamiento)
-        StringBuilder sb = new StringBuilder();
-        for (Date hora : horasOcupadas) {
-            sb.append(new SimpleDateFormat("HH:mm").format(hora)).append("\n");
-        }
-        binding.textView3.setText(sb.toString());
-        */
+    }
 
+    private void crearBotones() {
         for (final Date hora : horasDisponibles) {
             Button botonDisponibles = new Button(this);
             botonDisponibles.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -104,6 +119,7 @@ public class HorasActivity extends AppCompatActivity {
 
 
                     // Actualizar el layout de botones
+
                     binding.layoutHoras.removeView(v);
 
                     for (Date hora : horasOcupadas) {
@@ -124,7 +140,5 @@ public class HorasActivity extends AppCompatActivity {
 
 
         }
-
-
     }
 }

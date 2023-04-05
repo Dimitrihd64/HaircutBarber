@@ -73,6 +73,7 @@ public class LogInActivity extends AppCompatActivity {
                             // El login es correcto, y ya tengo la instancia del user
                             user = mAuth.getCurrentUser();
                             Toast.makeText(LogInActivity.this, "Ha iniciado sesion correctamente", Toast.LENGTH_SHORT).show();
+                            finish();
 
                         } else {
                             // El login ha fallado
