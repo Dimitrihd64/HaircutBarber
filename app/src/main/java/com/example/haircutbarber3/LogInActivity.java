@@ -20,6 +20,7 @@ public class LogInActivity extends AppCompatActivity {
     ActivityLogInBinding binding;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
+    MainActivity mainActivity = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,8 @@ public class LogInActivity extends AppCompatActivity {
         binding = ActivityLogInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseUtils.getFirebaseAuth();
+
 
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +75,7 @@ public class LogInActivity extends AppCompatActivity {
                             // El login es correcto, y ya tengo la instancia del user
                             user = mAuth.getCurrentUser();
                             Toast.makeText(LogInActivity.this, "Ha iniciado sesion correctamente", Toast.LENGTH_SHORT).show();
+
                             finish();
 
                         } else {

@@ -32,7 +32,7 @@
             <item
                 android:id="@+id/nav_login"
                 android:icon="@drawable/baseline_logout_24"
-                android:title="LogIn"/>
+                android:title=" " />
         </menu>
 
     </item>

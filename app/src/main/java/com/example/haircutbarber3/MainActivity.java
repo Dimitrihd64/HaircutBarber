@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity  {
     private DatabaseReference refCitas;
     private FirebaseUser user;
     private FirebaseAuth userAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
 
     @Override
@@ -52,18 +53,22 @@ public class MainActivity extends AppCompatActivity  {
         citasList = new ArrayList<>();
 
         //Firebase config
-        userAuth = FirebaseAuth.getInstance();
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        //userAuth = FirebaseAuth.getInstance();
+        userAuth = FirebaseUtils.getFirebaseAuth();
+
+        user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
 
         database = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
 
 
         ///la mierda de firebase va en los fragments
+        comprobarEstado();
+
 
         setSupportActionBar(binding.toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,binding.drawerLayout,binding.toolbar,R.string.open_nav,R.string.close_nav);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -105,12 +110,11 @@ public class MainActivity extends AppCompatActivity  {
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.nav_login:
-                        if (comprobarSesion()) {
-                            FirebaseAuth.getInstance().signOut();
 
+                        if (user != null) {
+                            FirebaseUtils.getFirebaseAuth().signOut();
                         } else {
-                            logIn();
-
+                            startActivity(new Intent(MainActivity.this, LogInActivity.class));
                         }
                 }
 
@@ -130,40 +134,32 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-    private boolean comprobarSesion() {
-        View headerView = binding.navView.getHeaderView(0);
+    private void comprobarEstado() {
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
+                View headerView = binding.navView.getHeaderView(0);
 
-        TextView lbCorreo = headerView.findViewById(R.id.lbCorreoHeader);
-        Menu menu = binding.navView.getMenu();
-        MenuItem LogIn = menu.findItem(R.id.nav_login);
+                TextView lbCorreo = headerView.findViewById(R.id.lbCorreoHeader);
+                Menu menu = binding.navView.getMenu();
+                MenuItem LogIn = menu.findItem(R.id.nav_login);
 
-        if (user != null) {
-            lbCorreo.setText(user.getEmail());
-            LogIn.setIcon(R.drawable.baseline_logout_24);
-            LogIn.setTitle("Cerrar Sesion");
-            return true;
-        } else {
-            lbCorreo.setText(R.string.app_name);
-            LogIn.setIcon(R.drawable.baseline_login_24);
-            LogIn.setTitle("Iniciar Sesion");
-            return false;
-        }
-    }
+                if (user != null) {
+                    lbCorreo.setText(user.getEmail());
+                    LogIn.setIcon(R.drawable.baseline_logout_24);
+                    LogIn.setTitle("Cerrar Sesion");
 
+                } else {
+                    lbCorreo.setText(R.string.app_name);
+                    LogIn.setIcon(R.drawable.baseline_login_24);
+                    LogIn.setTitle("Iniciar Sesion");
 
-    private void logIn() {
-        LogInActivity logInActivity = new LogInActivity();
-        if (logInActivity.isLogin()) {
-            Toast.makeText(MainActivity.this, "Ya tienes una sesion iniciada", Toast.LENGTH_SHORT).show();
-        } else {
-            startActivity(new Intent(MainActivity.this, LogInActivity.class));
-            comprobarSesion();
-        }
+                }
+            }
+        };
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
 
-    }
-
-    private void doLogIn(TextView email, TextView password) {
-        Toast.makeText(this, "AQUI LLEGO", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -173,7 +169,6 @@ public class MainActivity extends AppCompatActivity  {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
 
 
 }
