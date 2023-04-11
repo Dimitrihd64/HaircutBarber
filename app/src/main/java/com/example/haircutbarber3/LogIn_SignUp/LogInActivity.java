@@ -1,4 +1,4 @@
-package com.example.haircutbarber3;
+package com.example.haircutbarber3.LogIn_SignUp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.haircutbarber3.Firebase.FirebaseUtils;
+import com.example.haircutbarber3.MainActivity;
 import com.example.haircutbarber3.databinding.ActivityLogInBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

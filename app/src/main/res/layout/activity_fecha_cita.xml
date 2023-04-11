@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/fondoblanco"
     android:orientation="vertical"
-    tools:context=".FechaCitaActivity">
+    tools:context=".ui.Citas.FechaCitaActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

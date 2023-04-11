@@ -1,4 +1,4 @@
-package com.example.haircutbarber3;
+package com.example.haircutbarber3.ui.Citas;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -11,7 +11,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.haircutbarber3.MainActivity;
 import com.example.haircutbarber3.Models.Cita;
+import com.example.haircutbarber3.R;
 import com.example.haircutbarber3.databinding.ActivityHorasBinding;
 
 import java.text.SimpleDateFormat;

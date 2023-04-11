@@ -1,4 +1,4 @@
-package com.example.haircutbarber3;
+package com.example.haircutbarber3.Firebase;
 
 import com.google.firebase.auth.FirebaseAuth;
 

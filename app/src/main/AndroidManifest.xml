@@ -15,16 +15,16 @@
         android:theme="@style/Theme.HaircutBarber3"
         tools:targetApi="31">
         <activity
-            android:name=".HorasActivity"
+            android:name=".ui.Citas.HorasActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".LogIn_SignUp.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".LogIn_SignUp.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".FechaCitaActivity"
+            android:name=".ui.Citas.FechaCitaActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
