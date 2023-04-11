@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -121,13 +120,11 @@ public class HorasActivity extends AppCompatActivity {
 
 
                     // Actualizar el layout de botones
-
                     binding.layoutHoras.removeView(v);
 
-                    for (Date hora : horasOcupadas) {
-                        Log.d("HORASSSSSSSSSSSSS", "horas:" + hora.toString());
+                    startActivity(new Intent());
 
-                    }
+
                 }
             });
 
