@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item
 
-        android:id="@+id/details"
-        android:icon="@drawable/baseline_api_24"
-        android:title="Detalles" />
 
     <item
         android:id="@+id/news"
         android:title="Novedades"
         android:icon="@drawable/baseline_new_releases_24"/>
 
+    <item
 
+        android:id="@+id/details"
+        android:icon="@drawable/baseline_info_24"
+        android:title="Detalles" />
 
     <item
         android:title=""/>

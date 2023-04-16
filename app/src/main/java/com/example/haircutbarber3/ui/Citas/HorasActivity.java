@@ -1,11 +1,9 @@
 package com.example.haircutbarber3.ui.Citas;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,7 +98,6 @@ public class HorasActivity extends AppCompatActivity {
     private void crearBotones() {
         for (final Date hora : horasDisponibles) {
             Button botonDisponibles = new Button(this);
-            botonDisponibles.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
             botonDisponibles.setText(new SimpleDateFormat("HH:mm").format(hora));
@@ -108,22 +105,31 @@ public class HorasActivity extends AppCompatActivity {
             botonDisponibles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Cita cita = new Cita();
+
+
+
+
+
+
+
+
+                    /*Cita cita = new Cita();
                     cita.setFecha(hora);
 
                     // Agregar la cita a la lista de citas programadas
                     citas.add(cita);
 
+*/
                     // Agregar la hora a la lista de horas ocupadas
                     horasOcupadas.add(hora);
                     horasDisponibles.remove(hora);
-
+                    Intent intent = new Intent(HorasActivity.this, TipoServicioActivity.class);
+                    startActivity(intent);
 
                     // Actualizar el layout de botones
+
+
                     binding.layoutHoras.removeView(v);
-
-                    startActivity(new Intent());
-
 
                 }
             });
