@@ -91,11 +91,11 @@ public class HorasActivity extends AppCompatActivity {
             cal.add(Calendar.MINUTE, 30);
         }
 
-        crearBotones();
+        crearBotones(Dia, Mes, Año);
 
     }
 
-    private void crearBotones() {
+    private void crearBotones(int Dia, int Mes, int Año) {
         for (final Date hora : horasDisponibles) {
             Button botonDisponibles = new Button(this);
 
@@ -123,7 +123,13 @@ public class HorasActivity extends AppCompatActivity {
                     // Agregar la hora a la lista de horas ocupadas
                     horasOcupadas.add(hora);
                     horasDisponibles.remove(hora);
+                    Bundle bundle = new Bundle();
                     Intent intent = new Intent(HorasActivity.this, TipoServicioActivity.class);
+                    bundle.putInt("Dia", Dia);
+                    bundle.putInt("Mes", Mes);
+                    bundle.putInt("Año", Año);
+                    bundle.putSerializable("Hora", hora);
+                    intent.putExtras(bundle);
                     startActivity(intent);
 
                     // Actualizar el layout de botones
