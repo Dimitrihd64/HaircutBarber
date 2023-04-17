@@ -107,12 +107,6 @@ public class HorasActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
 
-
-
-
-
-
-
                     /*Cita cita = new Cita();
                     cita.setFecha(hora);
 
