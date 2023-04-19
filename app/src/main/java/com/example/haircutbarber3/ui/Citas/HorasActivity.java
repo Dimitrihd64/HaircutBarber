@@ -73,12 +73,12 @@ public class HorasActivity extends AppCompatActivity {
         cal.set(Calendar.MILLISECOND, 0);
 
         while (cal.get(Calendar.HOUR_OF_DAY) < 18) { // Hora de fin de las citas
-            Date horaActual = (Date) cal.getTime();
+            Date horaActual = cal.getTime();
 
             // Comprobar si hay una cita programada para esta hora
             boolean horaOcupada = false;
             for (Cita cita : citas) {
-                if (cita.getFecha().equals(horaActual)) {
+                if (cita.getHora().equals(horaActual)) {
                     horaOcupada = true;
                     break;
                 }
