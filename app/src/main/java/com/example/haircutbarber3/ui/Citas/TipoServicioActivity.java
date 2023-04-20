@@ -17,6 +17,7 @@ public class TipoServicioActivity extends AppCompatActivity {
     private ArrayList<String> productosList;
     private double precioTotal = 0.0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class TipoServicioActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         productosList = new ArrayList<>();
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         int Dia = bundle.getInt("Dia");
@@ -47,25 +49,31 @@ public class TipoServicioActivity extends AppCompatActivity {
                 precioTotal = 0.0;
                 if (binding.cbAdulto.isChecked()) {
                     precioTotal += precioCorteAdulto;
+                    productosList.add("Corte Adulto");
                 }
                 if (binding.cbNino.isChecked()) {
                     precioTotal += precioCorteNiño;
+                    productosList.add("Corte Niño");
                 }
                 if (binding.cbPeloBarba.isChecked()) {
                     precioTotal += precioPeloYBarba;
-
+                    productosList.add("Pelo y Barba");
                 }
                 if (binding.cbBarba.isChecked()) {
                     precioTotal += precioBarba;
+                    productosList.add("Corte Barba");
                 }
                 if (binding.cbTinte.isChecked()) {
                     precioTotal += precioTinte;
+                    productosList.add("Tinte");
                 }
                 if (binding.cbPermanente.isChecked()) {
                     precioTotal += precioPermanente;
+                    productosList.add("Permanente");
                 }
                 if (binding.cbLavado.isChecked()) {
                     precioTotal += precioLavado;
+                    productosList.add("+ Lavado");
                 }
                 binding.lbPrecioFinal.setText(String.valueOf(precioTotal));
 
@@ -74,6 +82,7 @@ public class TipoServicioActivity extends AppCompatActivity {
                 bundle.putInt("Dia", Dia);
                 bundle.putInt("Mes", Mes);
                 bundle.putInt("Año", Año);
+                bundle.putStringArrayList("Servicios", productosList);
                 bundle.putSerializable("Hora", Hora);
                 bundle.putDouble("Precio", precioTotal);
                 intent.putExtras(bundle);
@@ -88,6 +97,30 @@ public class TipoServicioActivity extends AppCompatActivity {
     public void onUserInteraction() {
         super.onUserInteraction();
 
+        binding.cbTinte.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.cbPermanente.setChecked(false);
+                    binding.cbPermanente.setEnabled(false);
+                } else {
+                    binding.cbPermanente.setEnabled(true);
+                }
+            }
+        });
+        binding.cbPermanente.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.cbTinte.setChecked(false);
+                    binding.cbTinte.setEnabled(false);
+                } else {
+                    binding.cbTinte.setEnabled(true);
+                }
+
+            }
+        });
+
 
         binding.cbPeloBarba.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -95,7 +128,11 @@ public class TipoServicioActivity extends AppCompatActivity {
                 if (isChecked) {
 
                     binding.cbBarba.setEnabled(false);
+                    binding.cbBarba.setChecked(false);
                     binding.cbAdulto.setEnabled(false);
+                    binding.cbAdulto.setChecked(false);
+
+
                 } else {
 
                     binding.cbBarba.setEnabled(true);

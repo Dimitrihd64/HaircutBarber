@@ -1,11 +1,15 @@
 package com.example.haircutbarber3.Models;
 
+import java.util.ArrayList;
+
 public class Cita {
     private String nombre;
     private String hora;
     private int dia;
     private int mes;
     private int año;
+    private ArrayList<String> serviciosList;
+
     private double precio;
 
     public String getNombre() {
@@ -48,6 +52,14 @@ public class Cita {
         this.año = año;
     }
 
+    public ArrayList<String> getServiciosList() {
+        return serviciosList;
+    }
+
+    public void setServiciosList(ArrayList<String> serviciosList) {
+        this.serviciosList = serviciosList;
+    }
+
     public double getPrecio() {
         return precio;
     }
@@ -59,19 +71,23 @@ public class Cita {
     @Override
     public String toString() {
         return "Cita{" +
-                "hora=" + hora +
+                "nombre='" + nombre + '\'' +
+                ", hora='" + hora + '\'' +
                 ", dia=" + dia +
                 ", mes=" + mes +
                 ", año=" + año +
+                ", serviciosList=" + serviciosList +
                 ", precio=" + precio +
                 '}';
     }
 
-    public Cita(String hora, int dia, int mes, int año, double precio) {
+    public Cita(String nombre, String hora, int dia, int mes, int año, ArrayList<String> serviciosList, double precio) {
+        this.nombre = nombre;
         this.hora = hora;
         this.dia = dia;
         this.mes = mes;
         this.año = año;
+        this.serviciosList = serviciosList;
         this.precio = precio;
     }
 

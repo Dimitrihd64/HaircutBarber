@@ -106,14 +106,6 @@ public class HorasActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-
-                    /*Cita cita = new Cita();
-                    cita.setFecha(hora);
-
-                    // Agregar la cita a la lista de citas programadas
-                    citas.add(cita);
-
-*/
                     // Agregar la hora a la lista de horas ocupadas
                     horasOcupadas.add(hora);
                     horasDisponibles.remove(hora);
@@ -127,8 +119,6 @@ public class HorasActivity extends AppCompatActivity {
                     startActivity(intent);
 
                     // Actualizar el layout de botones
-
-
                     binding.layoutHoras.removeView(v);
 
                 }

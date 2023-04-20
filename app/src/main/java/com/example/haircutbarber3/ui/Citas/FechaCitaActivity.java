@@ -34,6 +34,7 @@ public class FechaCitaActivity extends AppCompatActivity {
                 int Dia = binding.datepicker.getDayOfMonth();
                 int Mes = binding.datepicker.getMonth();
                 int Año = binding.datepicker.getYear();
+                Mes = Mes + 1;
 
                 binding.lbFecha.setText("Dia: " + Dia + " Mes: " + Mes + " Año: " + Año);
                 Bundle bundle = new Bundle();
