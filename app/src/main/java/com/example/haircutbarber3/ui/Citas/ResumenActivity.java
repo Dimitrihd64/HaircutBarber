@@ -2,11 +2,14 @@ package com.example.haircutbarber3.ui.Citas;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.databinding.ActivityResumenBinding;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import java.util.Date;
 public class ResumenActivity extends AppCompatActivity {
 
     private ActivityResumenBinding binding;
+    private DatabaseReference refCitas;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,7 @@ public class ResumenActivity extends AppCompatActivity {
         binding = ActivityResumenBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -40,6 +46,13 @@ public class ResumenActivity extends AppCompatActivity {
         binding.lbHoraCita.setText("Hora : " + c.getHora());
         binding.lbServicioCita.setText("Servicios : " + c.getServiciosList().toString());
         binding.lbPrecioCita.setText("Precio Total : " + c.getPrecio());
+
+        binding.btReservar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

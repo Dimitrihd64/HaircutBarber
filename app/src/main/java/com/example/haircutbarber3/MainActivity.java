@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity  {
 
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
 
-        database = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
+        //database = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
+        database = FirebaseUtils.getDatabase();
 
 
         ///la mierda de firebase va en los fragments
