@@ -52,7 +52,7 @@ public class ResumenActivity extends AppCompatActivity {
         String Nombre = "Cita " + Dia + "-" + Mes + "-" + Año;
 
         Cita c = new Cita(Nombre, horaFormat, Dia, Mes, Año, servicios, precioTotal);
-        binding.lbNombreCita.setText(c.getDia() + " - " + c.getMes() + " - " + c.getAño());
+
         binding.lbFechaCita.setText(c.getDia() + " - " + c.getMes() + " - " + c.getAño());
         binding.lbHoraCita.setText(c.getHora());
         binding.lbServicioCita.setText(c.getServiciosList().toString());
