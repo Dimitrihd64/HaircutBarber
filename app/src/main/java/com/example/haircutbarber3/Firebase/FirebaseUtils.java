@@ -13,7 +13,6 @@ public class FirebaseUtils {
         }
         return mAuth;
     }
-
     public static synchronized FirebaseDatabase getDatabase() {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
