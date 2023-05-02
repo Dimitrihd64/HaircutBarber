@@ -87,6 +87,8 @@ public class TipoServicioActivity extends AppCompatActivity {
                 bundle.putDouble("Precio", precioTotal);
                 intent.putExtras(bundle);
                 startActivity(intent);
+
+                finish();
             }
         });
 
