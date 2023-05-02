@@ -38,7 +38,8 @@ public class ResumenActivity extends AppCompatActivity {
         citasList = new ArrayList<>();
 
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
-        refCitas = FirebaseUtils.getDatabase().getReference(user.getEmail().replace(".", "_")).child("Citas");
+        refCitas = FirebaseUtils.getDatabase().getReference().child("CitasList");
+
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -49,13 +50,15 @@ public class ResumenActivity extends AppCompatActivity {
         ArrayList<String> servicios = bundle.getStringArrayList("Servicios");
         double precioTotal = bundle.getDouble("Precio");
         String horaFormat = new SimpleDateFormat("HH:mm").format(Hora);
-        String Nombre = "Cita " + Dia + "-" + Mes + "-" + Año;
+        String Fecha = Dia + "-" + Mes + "-" + Año;
+        String Nombre = "Cita " + Fecha;
+        String Usuario = user.getEmail();
 
-        Cita c = new Cita(Nombre, horaFormat, Dia, Mes, Año, servicios, precioTotal);
+        Cita c = new Cita(Usuario, Nombre, horaFormat, Fecha, servicios, precioTotal);
 
-        binding.lbFechaCita.setText(c.getDia() + " - " + c.getMes() + " - " + c.getAño());
+        binding.lbFechaCita.setText(c.getFecha());
         binding.lbHoraCita.setText(c.getHora());
-        binding.lbServicioCita.setText(c.getServiciosList().toString());
+        binding.lbServicioCita.setText(c.getServicios().toString());
         binding.lbPrecioCita.setText(c.getPrecio() + " €");
 
         refCitas.addValueEventListener(new ValueEventListener() {
@@ -69,7 +72,7 @@ public class ResumenActivity extends AppCompatActivity {
                     citasList.addAll(snapshot.getValue(gtiCita));
 
                     for (Cita c : citasList) {
-                        Log.d("Cita Añadida", "onDataChange: " + c.toString());
+                        Log.d("Citas en FIREBASE", "onDataChange: " + citasList.size());
                     }
 
                 }
@@ -87,6 +90,8 @@ public class ResumenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 citasList.add(c);
                 refCitas.setValue(citasList);
+
+                finish();
             }
         });
 

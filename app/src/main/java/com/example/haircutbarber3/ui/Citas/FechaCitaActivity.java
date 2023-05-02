@@ -35,17 +35,16 @@ public class FechaCitaActivity extends AppCompatActivity {
                 int Mes = binding.datepicker.getMonth();
                 int Año = binding.datepicker.getYear();
                 Mes = Mes + 1;
-
-                binding.lbFecha.setText("Dia: " + Dia + " Mes: " + Mes + " Año: " + Año);
+                String Fecha = Dia + "-" + Mes + "-" + Año;
+                binding.lbFecha.setText(Fecha);
                 Bundle bundle = new Bundle();
 
                 Intent intent = new Intent(FechaCitaActivity.this, HorasActivity.class);
-                bundle.putInt("Dia", Dia);
-                bundle.putInt("Mes", Mes);
-                bundle.putInt("Año", Año);
+                bundle.putString("Fecha", Fecha);
                 intent.putExtras(bundle);
                 startActivity(intent);
 
+                finish();
 
             }
         });

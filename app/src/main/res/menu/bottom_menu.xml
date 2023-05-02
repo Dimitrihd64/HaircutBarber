@@ -16,7 +16,8 @@
         android:title="Detalles" />
 
     <item
-        android:title=""/>
+        android:title=""
+        android:enabled="false" />
 
 
     <item

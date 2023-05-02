@@ -1,16 +1,25 @@
 package com.example.haircutbarber3.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cita {
+public class Cita implements Serializable {
+    private String Usuario;
     private String Nombre;
     private String Hora;
-    private int Dia;
-    private int Mes;
-    private int Año;
+    private String Fecha;
+
     private ArrayList<String> Servicios;
 
     private double Precio;
+
+    public String getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        Usuario = usuario;
+    }
 
     public String getNombre() {
         return Nombre;
@@ -28,36 +37,20 @@ public class Cita {
         this.Hora = hora;
     }
 
-    public int getDia() {
-        return Dia;
+    public String getFecha() {
+        return Fecha;
     }
 
-    public void setDia(int dia) {
-        this.Dia = dia;
+    public void setFecha(String fecha) {
+        Fecha = fecha;
     }
 
-    public int getMes() {
-        return Mes;
-    }
-
-    public void setMes(int mes) {
-        this.Mes = mes;
-    }
-
-    public int getAño() {
-        return Año;
-    }
-
-    public void setAño(int año) {
-        this.Año = año;
-    }
-
-    public ArrayList<String> getServiciosList() {
+    public ArrayList<String> getServicios() {
         return Servicios;
     }
 
-    public void setServiciosList(ArrayList<String> serviciosList) {
-        this.Servicios = serviciosList;
+    public void setServicios(ArrayList<String> servicios) {
+        Servicios = servicios;
     }
 
     public double getPrecio() {
@@ -71,24 +64,22 @@ public class Cita {
     @Override
     public String toString() {
         return "Cita{" +
-                "nombre='" + Nombre + '\'' +
-                ", hora='" + Hora + '\'' +
-                ", dia=" + Dia +
-                ", mes=" + Mes +
-                ", año=" + Año +
-                ", servicios=" + Servicios +
-                ", precio=" + Precio +
+                "Usuario='" + Usuario + '\'' +
+                ", Nombre='" + Nombre + '\'' +
+                ", Hora='" + Hora + '\'' +
+                ", Fecha='" + Fecha + '\'' +
+                ", Servicios=" + Servicios +
+                ", Precio=" + Precio +
                 '}';
     }
 
-    public Cita(String nombre, String hora, int dia, int mes, int año, ArrayList<String> serviciosList, double precio) {
-        this.Nombre = nombre;
-        this.Hora = hora;
-        this.Dia = dia;
-        this.Mes = mes;
-        this.Año = año;
-        this.Servicios = serviciosList;
-        this.Precio = precio;
+    public Cita(String usuario, String nombre, String hora, String fecha, ArrayList<String> servicios, double precio) {
+        Usuario = usuario;
+        Nombre = nombre;
+        Hora = hora;
+        Fecha = fecha;
+        Servicios = servicios;
+        Precio = precio;
     }
 
     public Cita() {

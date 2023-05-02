@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.haircutbarber3.Firebase.FirebaseUtils;
-import com.example.haircutbarber3.MainActivity;
 import com.example.haircutbarber3.databinding.ActivityLogInBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +21,7 @@ public class LogInActivity extends AppCompatActivity {
     ActivityLogInBinding binding;
     private FirebaseUser user;
     private FirebaseAuth mAuth;
-    MainActivity mainActivity = new MainActivity();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,7 @@ public class LogInActivity extends AppCompatActivity {
 
                         } else {
                             // El login ha fallado
-                            Toast.makeText(LogInActivity.this, "Ha fallado el Login,Registate", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogInActivity.this, "Email o Contraseña incorrecta", Toast.LENGTH_SHORT).show();
 
                         }
                     }

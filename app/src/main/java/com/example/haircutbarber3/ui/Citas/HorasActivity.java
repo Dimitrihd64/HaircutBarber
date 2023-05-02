@@ -6,13 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.haircutbarber3.Firebase.FirebaseUtils;
 import com.example.haircutbarber3.MainActivity;
 import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.R;
 import com.example.haircutbarber3.databinding.ActivityHorasBinding;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +35,9 @@ public class HorasActivity extends AppCompatActivity {
     private List<Cita> citas;
     private List<Date> horasDisponibles;
     private List<Date> horasOcupadas;
+    private FirebaseUser user;
+    private DatabaseReference citasRef;
+    private DatabaseReference rootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,69 +45,132 @@ public class HorasActivity extends AppCompatActivity {
 
         binding = ActivityHorasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
+        citasRef = FirebaseUtils.getDatabase().getReference().child("CitasList");
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        int Dia = bundle.getInt("Dia");
-        int Mes = bundle.getInt("Mes");
-        int Año = bundle.getInt("Año");
+        String Fecha = bundle.getString("Fecha");
 
-        crearHoras(Dia, Mes, Año);
-
-
-
-
-        /*Para el textView3(era la prueba de funcionamiento)
-        StringBuilder sb = new StringBuilder();
-        for (Date hora : horasOcupadas) {
-            sb.append(new SimpleDateFormat("HH:mm").format(hora)).append("\n");
-        }
-        binding.textView3.setText(sb.toString());
-        */
-
-
-    }
-
-    private void crearHoras(int Dia, int Mes, int Año) {
         citas = new ArrayList<>();
-
         horasDisponibles = new ArrayList<>();
         horasOcupadas = new ArrayList<>();
 
-
-        Date fechaDia = new Date(Dia, Mes, Año);
-
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(fechaDia);
-        cal.set(Calendar.HOUR_OF_DAY, 12);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-
-        while (cal.get(Calendar.HOUR_OF_DAY) < 18) { // Hora de fin de las citas
-            Date horaActual = cal.getTime();
-
-            // Comprobar si hay una cita programada para esta hora
-            boolean horaOcupada = false;
-            for (Cita cita : citas) {
-                if (cita.getHora().equals(horaActual)) {
-                    horaOcupada = true;
-                    break;
-                }
-            }
-            if (horaOcupada) {
-                horasOcupadas.add(horaActual);
-            } else {
-                horasDisponibles.add(horaActual);
-            }
-            cal.add(Calendar.MINUTE, 30);
+        try {
+            crearHoras(Fecha);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
 
-        crearBotones(Dia, Mes, Año);
 
     }
 
-    private void crearBotones(int Dia, int Mes, int Año) {
+    private void crearHoras(String Fecha) throws ParseException {
+
+        //pruebaFirebase
+        ///*
+        citasRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                GenericTypeIndicator<ArrayList<Cita>> gtiCita = new GenericTypeIndicator<ArrayList<Cita>>() {
+                };
+
+                if (snapshot.exists()) {
+                    citas.clear();
+                    citas.addAll(snapshot.getValue(gtiCita));
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    Date fechaDia = null;
+                    try {
+                        fechaDia = formatter.parse(Fecha);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(fechaDia);
+                    cal.set(Calendar.HOUR_OF_DAY, 12);
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    cal.set(Calendar.MILLISECOND, 0);
+
+                    // Lista predefinida de horas disponibles de 12:00 a 17:30 con intervalos de 30 minutos
+                    while (cal.get(Calendar.HOUR_OF_DAY) < 18 || (cal.get(Calendar.HOUR_OF_DAY) == 18 && cal.get(Calendar.MINUTE) == 0)) {
+                        horasDisponibles.add(cal.getTime());
+                        cal.add(Calendar.MINUTE, 30);
+
+                        for (Cita cita : citas) {
+                            Date horaCita = null;
+                            try {
+                                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                                horaCita = format.parse(cita.getFecha() + " " + cita.getHora());
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            // Comparar la fecha de la cita con la fecha en fechaDia
+                            SimpleDateFormat formatFechaDia = new SimpleDateFormat("dd-MM-yyyy");
+                            if (formatFechaDia.format(horaCita).equals(formatFechaDia.format(fechaDia))) {
+                                if (horasDisponibles.contains(horaCita)) {
+                                    horasDisponibles.remove(horaCita);
+                                    horasOcupadas.add(horaCita);
+                                }
+                            }
+                        }
+                    }
+
+                    String[] componentesFecha = Fecha.split("-");
+
+                    int dia = Integer.parseInt(componentesFecha[0]);
+                    int mes = Integer.parseInt(componentesFecha[1]);
+                    int año = Integer.parseInt(componentesFecha[2]); // Suponiendo que el año está en formato yy (sin siglo)
+
+                    crearBotones(dia, mes, año);
+                } else {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                    Date fechaDia = null;
+                    try {
+                        fechaDia = formatter.parse(Fecha);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(fechaDia);
+                    cal.set(Calendar.HOUR_OF_DAY, 12);
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    cal.set(Calendar.MILLISECOND, 0);
+
+                    while (cal.get(Calendar.HOUR_OF_DAY) < 18 || (cal.get(Calendar.HOUR_OF_DAY) == 18 && cal.get(Calendar.MINUTE) == 0)) {
+                        horasDisponibles.add(cal.getTime());
+                        cal.add(Calendar.MINUTE, 30);
+                    }
+
+                    String[] componentesFecha = Fecha.split("-");
+
+                    int dia = Integer.parseInt(componentesFecha[0]);
+                    int mes = Integer.parseInt(componentesFecha[1]);
+                    int año = Integer.parseInt(componentesFecha[2]); // Suponiendo que el año está en formato yy (sin siglo)
+
+                    crearBotones(dia, mes, año);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+//*/
+        //fin prueba firebase
+        /*
+
+         */
+    }
+
+    private void crearBotones(int dia, int mes, int año) {
+
         for (final Date hora : horasDisponibles) {
             Button botonDisponibles = new Button(this);
 
@@ -109,17 +184,20 @@ public class HorasActivity extends AppCompatActivity {
                     // Agregar la hora a la lista de horas ocupadas
                     horasOcupadas.add(hora);
                     horasDisponibles.remove(hora);
+
                     Bundle bundle = new Bundle();
                     Intent intent = new Intent(HorasActivity.this, TipoServicioActivity.class);
-                    bundle.putInt("Dia", Dia);
-                    bundle.putInt("Mes", Mes);
-                    bundle.putInt("Año", Año);
+                    bundle.putInt("Dia", dia);
+                    bundle.putInt("Mes", mes);
+                    bundle.putInt("Año", año);
                     bundle.putSerializable("Hora", hora);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
                     // Actualizar el layout de botones
                     binding.layoutHoras.removeView(v);
+
+                    finish();
 
                 }
             });

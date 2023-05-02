@@ -57,12 +57,11 @@ public class MainActivity extends AppCompatActivity  {
 
         //Firebase config
 
-        //userAuth = FirebaseAuth.getInstance();
+
         userAuth = FirebaseUtils.getFirebaseAuth();
 
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
 
-        //database = FirebaseDatabase.getInstance("https://haircutbarberdb-default-rtdb.europe-west1.firebasedatabase.app/");
         database = FirebaseUtils.getDatabase();
 
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity  {
         comprobarEstado();
 
 
-        setSupportActionBar(binding.toolbar);
+        //setSupportActionBar(binding.toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav);
         binding.drawerLayout.addDrawerListener(toggle);
@@ -131,6 +130,7 @@ public class MainActivity extends AppCompatActivity  {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(MainActivity.this, FechaCitaActivity.class));
 
 
@@ -153,11 +153,14 @@ public class MainActivity extends AppCompatActivity  {
                     lbCorreo.setText(user.getEmail());
                     LogIn.setIcon(R.drawable.baseline_logout_24);
                     LogIn.setTitle("Cerrar Sesion");
+                    binding.fab.setEnabled(true);
 
                 } else {
                     lbCorreo.setText(R.string.app_name);
                     LogIn.setIcon(R.drawable.baseline_login_24);
                     LogIn.setTitle("Iniciar Sesion");
+                    binding.fab.setEnabled(false);
+                    Toast.makeText(MainActivity.this, "Iniacia sesion para añadir citas", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -174,5 +177,9 @@ public class MainActivity extends AppCompatActivity  {
         fragmentTransaction.commit();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+    }
 }
