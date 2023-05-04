@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity  {
 
         ///la mierda de firebase va en los fragments
         comprobarEstado();
-
+        borradoDeCitas();
 
         //setSupportActionBar(binding.toolbar);
 
@@ -136,6 +136,11 @@ public class MainActivity extends AppCompatActivity  {
 
             }
         });
+    }
+
+    private void borradoDeCitas() {
+
+
     }
 
     private void comprobarEstado() {

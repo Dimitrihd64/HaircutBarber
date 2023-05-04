@@ -3,6 +3,7 @@ package com.example.haircutbarber3.ui.Citas;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.databinding.ActivityFechaCitaBinding;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class FechaCitaActivity extends AppCompatActivity {
 
@@ -31,25 +33,38 @@ public class FechaCitaActivity extends AppCompatActivity {
         binding.btSaveDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int Dia = binding.datepicker.getDayOfMonth();
                 int Mes = binding.datepicker.getMonth();
                 int Año = binding.datepicker.getYear();
-                Mes = Mes + 1;
-                String Fecha = Dia + "-" + Mes + "-" + Año;
-                binding.lbFecha.setText(Fecha);
-                Bundle bundle = new Bundle();
 
-                Intent intent = new Intent(FechaCitaActivity.this, HorasActivity.class);
-                bundle.putString("Fecha", Fecha);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                comprobarFecha(Dia, Mes, Año);
 
-                finish();
 
             }
         });
 
 
+    }
+
+    private void comprobarFecha(int dia, int mes, int año) {
+        Calendar fechaActual = Calendar.getInstance();
+        Calendar fechaSeleccionada = Calendar.getInstance();
+        fechaSeleccionada.set(año, mes, dia);
+        if (fechaSeleccionada.compareTo(fechaActual) > 0) {
+            String Fecha = dia + "-" + mes + "-" + año;
+            Bundle bundle = new Bundle();
+
+            Intent intent = new Intent(FechaCitaActivity.this, HorasActivity.class);
+            bundle.putString("Fecha", Fecha);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "La Fecha debe ser posterior a hoy", Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 
 
