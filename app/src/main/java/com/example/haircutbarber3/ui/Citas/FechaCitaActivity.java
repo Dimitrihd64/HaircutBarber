@@ -37,7 +37,7 @@ public class FechaCitaActivity extends AppCompatActivity {
                 int Dia = binding.datepicker.getDayOfMonth();
                 int Mes = binding.datepicker.getMonth();
                 int Año = binding.datepicker.getYear();
-
+                Mes = Mes + 1;
                 comprobarFecha(Dia, Mes, Año);
 
 

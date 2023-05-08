@@ -75,7 +75,7 @@ public class TipoServicioActivity extends AppCompatActivity {
                     precioTotal += precioLavado;
                     productosList.add("+ Lavado");
                 }
-                binding.lbPrecioFinal.setText(String.valueOf(precioTotal));
+
 
                 Intent intent = new Intent(TipoServicioActivity.this, ResumenActivity.class);
                 Bundle bundle = new Bundle();

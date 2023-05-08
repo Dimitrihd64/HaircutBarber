@@ -21,6 +21,7 @@ import com.example.haircutbarber3.LogIn_SignUp.LogInActivity;
 import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.databinding.ActivityMainBinding;
 import com.example.haircutbarber3.ui.Citas.FechaCitaActivity;
+import com.example.haircutbarber3.ui.Citas.ListaCitasActivity;
 import com.example.haircutbarber3.ui.Detalles.DetallesFragment;
 import com.example.haircutbarber3.ui.Novedades.NovedadesFragment;
 import com.example.haircutbarber3.ui.Servicios.CortesFragment;
@@ -108,7 +109,8 @@ public class MainActivity extends AppCompatActivity  {
                         Toast.makeText(MainActivity.this, "Esto va tambien", Toast.LENGTH_SHORT).show();
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
                         break;
-                    case R.id.nav_info:
+                    case R.id.nav_citas:
+                        startActivity(new Intent(MainActivity.this, ListaCitasActivity.class));
                         Toast.makeText(MainActivity.this, "Esto va tambien", Toast.LENGTH_SHORT).show();
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -182,9 +184,5 @@ public class MainActivity extends AppCompatActivity  {
         fragmentTransaction.commit();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-    }
 }
