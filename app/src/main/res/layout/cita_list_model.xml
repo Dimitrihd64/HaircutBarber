@@ -12,8 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border"
         android:orientation="horizontal"
-        android:background="@drawable/border">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/lbFechaAdapter"
@@ -21,7 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="6"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/lbHoraAdapter"
@@ -29,7 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="6"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/lbClienteAdapter"
@@ -37,7 +45,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#FF9800"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
