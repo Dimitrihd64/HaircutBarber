@@ -70,7 +70,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
 
         lbFecha.setText(citas.get(adapterPosition).getFecha());
         lbHora.setText(citas.get(adapterPosition).getHora());
-        lbServicio.setText(citas.get(adapterPosition).getServicios().toString());
+
         lbPrecio.setText(String.valueOf(citas.get(adapterPosition).getPrecio()));
 
 
