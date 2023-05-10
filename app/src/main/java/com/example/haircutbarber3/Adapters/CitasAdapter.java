@@ -11,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.haircutbarber3.Firebase.FirebaseUtils;
 import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.R;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
     public void onBindViewHolder(@NonNull CitasAdapter.CitaVH holder, int position) {
 
         holder.lbFecha.setText(citas.get(position).getFecha());
+        holder.lbHora.setText(citas.get(position).getHora());
         String email = citas.get(position).getUsuario();
         String username = email.split("@")[0];
         holder.lbCliente.setText(username);
@@ -64,10 +67,12 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
         TextView lbServicio = dialog.findViewById(R.id.lbServicioCita);
         TextView lbPrecio = dialog.findViewById(R.id.lbPrecioCita);
 
+
         lbFecha.setText(citas.get(adapterPosition).getFecha());
         lbHora.setText(citas.get(adapterPosition).getHora());
         lbServicio.setText(citas.get(adapterPosition).getServicios().toString());
         lbPrecio.setText(String.valueOf(citas.get(adapterPosition).getPrecio()));
+
 
         btAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +84,20 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
             @Override
             public void onClick(View v) {
 
-
+                citas.remove(adapterPosition);
+                notifyItemRemoved(adapterPosition);
+                actualizarListaFirebase(citas);
+                dialog.dismiss();
             }
         });
 
 
         return dialog;
+    }
+
+    private void actualizarListaFirebase(List<Cita> citas) {
+        DatabaseReference ref = FirebaseUtils.getDatabase().getReference().child("CitasList");
+        ref.setValue(citas);
     }
 
     @Override
@@ -95,11 +108,12 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
 
     public class CitaVH extends RecyclerView.ViewHolder {
 
-        TextView lbFecha, lbCliente;
+        TextView lbFecha, lbCliente, lbHora;
 
         public CitaVH(@NonNull View itemView) {
             super(itemView);
             lbFecha = itemView.findViewById(R.id.lbFechaAdapter);
+            lbHora = itemView.findViewById(R.id.lbHoraAdapter);
             lbCliente = itemView.findViewById(R.id.lbClienteAdapter);
 
 

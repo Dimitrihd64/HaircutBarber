@@ -7,7 +7,7 @@
 
     android:layout_width="325dp"
     android:layout_height="210dp"
-    android:background="@drawable/border"
+    android:background="@color/white"
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -120,14 +120,15 @@
         app:layout_constraintVertical_bias="0.68" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/lbNombre"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-
-        android:background="@drawable/border_text_complete"
-        android:paddingTop="10dp"
-        android:text="TextView"
+        android:background="@color/yellow"
+        android:paddingTop="5dp"
+        android:text="Detalles"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,6 +157,18 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lbNombre"
+        app:layout_constraintEnd_toEndOf="@+id/lbNombre"
+        app:layout_constraintTop_toTopOf="@+id/lbNombre"
+        app:srcCompat="@drawable/baseline_info_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,6 +19,8 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListaCitasActivity extends AppCompatActivity {
@@ -54,7 +56,8 @@ public class ListaCitasActivity extends AppCompatActivity {
                         GenericTypeIndicator<ArrayList<Cita>> gtiCita = new GenericTypeIndicator<ArrayList<Cita>>() {
                         };
                         citas.addAll(snapshot.getValue(gtiCita));
-                        adapter.notifyItemRangeChanged(0, citas.size());
+                        ordenarCitas(citas);
+
                     }
                 }
 
@@ -80,8 +83,8 @@ public class ListaCitasActivity extends AppCompatActivity {
                         }
                         citas.clear();
                         citas.addAll(citasFiltered);
+                        ordenarCitas(citas);
 
-                        adapter.notifyItemRangeChanged(0, citas.size());
                     }
                 }
 
@@ -91,6 +94,22 @@ public class ListaCitasActivity extends AppCompatActivity {
                 }
             });
         }
+
+
+    }
+
+    private void ordenarCitas(List<Cita> citas) {
+        Collections.sort(citas, new Comparator<Cita>() {
+            @Override
+            public int compare(Cita cita1, Cita cita2) {
+                int resultadoFecha = cita1.getFecha().compareTo(cita2.getFecha());
+                if (resultadoFecha != 0) {
+                    return resultadoFecha;
+                }
+                return cita1.getHora().compareTo(cita2.getHora());
+            }
+        });
+        adapter.notifyItemRangeChanged(0, citas.size());
 
 
     }

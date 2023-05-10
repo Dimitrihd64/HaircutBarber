@@ -53,8 +53,9 @@ public class ResumenActivity extends AppCompatActivity {
         String Fecha = Dia + "-" + Mes + "-" + Año;
         String Nombre = "Cita " + Fecha;
         String Usuario = user.getEmail();
+        String citaId = refCitas.push().getKey();
 
-        Cita c = new Cita(Usuario, Nombre, horaFormat, Fecha, servicios, precioTotal);
+        Cita c = new Cita(Usuario, citaId, Nombre, horaFormat, Fecha, servicios, precioTotal);
 
         binding.lbFechaCita.setText(c.getFecha());
         binding.lbHoraCita.setText(c.getHora());

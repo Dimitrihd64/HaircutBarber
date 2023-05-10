@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Cita implements Serializable {
     private String Usuario;
+    private String Id;
     private String Nombre;
     private String Hora;
     private String Fecha;
@@ -19,6 +20,14 @@ public class Cita implements Serializable {
 
     public void setUsuario(String usuario) {
         Usuario = usuario;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getNombre() {
@@ -61,25 +70,27 @@ public class Cita implements Serializable {
         this.Precio = precio;
     }
 
+    public Cita(String usuario, String id, String nombre, String hora, String fecha, ArrayList<String> servicios, double precio) {
+        Usuario = usuario;
+        Id = id;
+        Nombre = nombre;
+        Hora = hora;
+        Fecha = fecha;
+        Servicios = servicios;
+        Precio = precio;
+    }
+
     @Override
     public String toString() {
         return "Cita{" +
                 "Usuario='" + Usuario + '\'' +
+                ", Id='" + Id + '\'' +
                 ", Nombre='" + Nombre + '\'' +
                 ", Hora='" + Hora + '\'' +
                 ", Fecha='" + Fecha + '\'' +
                 ", Servicios=" + Servicios +
                 ", Precio=" + Precio +
                 '}';
-    }
-
-    public Cita(String usuario, String nombre, String hora, String fecha, ArrayList<String> servicios, double precio) {
-        Usuario = usuario;
-        Nombre = nombre;
-        Hora = hora;
-        Fecha = fecha;
-        Servicios = servicios;
-        Precio = precio;
     }
 
     public Cita() {

@@ -37,7 +37,7 @@ public class FechaCitaActivity extends AppCompatActivity {
                 int Dia = binding.datepicker.getDayOfMonth();
                 int Mes = binding.datepicker.getMonth();
                 int Año = binding.datepicker.getYear();
-                Mes = Mes + 1;
+
                 comprobarFecha(Dia, Mes, Año);
 
 
@@ -52,6 +52,7 @@ public class FechaCitaActivity extends AppCompatActivity {
         Calendar fechaSeleccionada = Calendar.getInstance();
         fechaSeleccionada.set(año, mes, dia);
         if (fechaSeleccionada.compareTo(fechaActual) > 0) {
+            mes = mes + 1;
             String Fecha = dia + "-" + mes + "-" + año;
             Bundle bundle = new Bundle();
 

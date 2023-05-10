@@ -122,7 +122,8 @@ public class HorasActivity extends AppCompatActivity {
 
                     int dia = Integer.parseInt(componentesFecha[0]);
                     int mes = Integer.parseInt(componentesFecha[1]);
-                    int año = Integer.parseInt(componentesFecha[2]); // Suponiendo que el año está en formato yy (sin siglo)
+                    int año = Integer.parseInt(componentesFecha[2]);
+
 
                     crearBotones(dia, mes, año);
                 } else {
@@ -149,7 +150,8 @@ public class HorasActivity extends AppCompatActivity {
 
                     int dia = Integer.parseInt(componentesFecha[0]);
                     int mes = Integer.parseInt(componentesFecha[1]);
-                    int año = Integer.parseInt(componentesFecha[2]); // Suponiendo que el año está en formato yy (sin siglo)
+                    int año = Integer.parseInt(componentesFecha[2]);
+
 
                     crearBotones(dia, mes, año);
                 }
