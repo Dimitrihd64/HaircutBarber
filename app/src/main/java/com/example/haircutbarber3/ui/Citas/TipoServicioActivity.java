@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +35,7 @@ public class TipoServicioActivity extends AppCompatActivity {
         int Año = bundle.getInt("Año");
         Date Hora = (Date) bundle.getSerializable("Hora");
 
+        binding.cbLavado.setEnabled(false);
         preciosCheckbox(Dia, Mes, Año, Hora);
 
     }
@@ -71,6 +73,7 @@ public class TipoServicioActivity extends AppCompatActivity {
                     precioTotal += precioPermanente;
                     productosList.add("Permanente");
                 }
+
                 if (binding.cbLavado.isChecked()) {
                     precioTotal += precioLavado;
                     productosList.add("+ Lavado");
@@ -86,9 +89,15 @@ public class TipoServicioActivity extends AppCompatActivity {
                 bundle.putSerializable("Hora", Hora);
                 bundle.putDouble("Precio", precioTotal);
                 intent.putExtras(bundle);
-                startActivity(intent);
 
-                finish();
+                if (productosList.isEmpty()) {
+                    Toast.makeText(TipoServicioActivity.this, "Debes escojer al menos un servicio", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(intent);
+                    finish();
+                }
+
+
             }
         });
 
@@ -99,14 +108,53 @@ public class TipoServicioActivity extends AppCompatActivity {
     public void onUserInteraction() {
         super.onUserInteraction();
 
+        binding.cbBarba.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.cbLavado.setEnabled(true);
+                } else {
+                    binding.cbLavado.setEnabled(false);
+                    binding.cbLavado.setChecked(false);
+                }
+            }
+        });
+        binding.cbAdulto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.cbLavado.setEnabled(true);
+                } else {
+                    binding.cbLavado.setEnabled(false);
+                    binding.cbLavado.setChecked(false);
+                }
+            }
+        });
+
+        binding.cbNino.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    binding.cbLavado.setEnabled(true);
+                } else {
+                    binding.cbLavado.setEnabled(false);
+                    binding.cbLavado.setChecked(false);
+                }
+            }
+        });
+
+
         binding.cbTinte.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     binding.cbPermanente.setChecked(false);
                     binding.cbPermanente.setEnabled(false);
+                    binding.cbLavado.setEnabled(true);
                 } else {
                     binding.cbPermanente.setEnabled(true);
+                    binding.cbLavado.setEnabled(false);
+                    binding.cbLavado.setChecked(false);
                 }
             }
         });
@@ -116,8 +164,10 @@ public class TipoServicioActivity extends AppCompatActivity {
                 if (isChecked) {
                     binding.cbTinte.setChecked(false);
                     binding.cbTinte.setEnabled(false);
+                    binding.cbLavado.setEnabled(true);
                 } else {
                     binding.cbTinte.setEnabled(true);
+                    binding.cbLavado.setEnabled(false);
                 }
 
             }
@@ -133,12 +183,14 @@ public class TipoServicioActivity extends AppCompatActivity {
                     binding.cbBarba.setChecked(false);
                     binding.cbAdulto.setEnabled(false);
                     binding.cbAdulto.setChecked(false);
+                    binding.cbLavado.setEnabled(true);
 
 
                 } else {
 
                     binding.cbBarba.setEnabled(true);
                     binding.cbAdulto.setEnabled(true);
+                    binding.cbLavado.setEnabled(false);
                 }
             }
         });

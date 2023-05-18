@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -94,7 +95,7 @@ public class HorasActivity extends AppCompatActivity {
                     cal.set(Calendar.MILLISECOND, 0);
 
                     // Lista predefinida de horas disponibles de 12:00 a 17:30 con intervalos de 30 minutos
-                    while (cal.get(Calendar.HOUR_OF_DAY) < 18 || (cal.get(Calendar.HOUR_OF_DAY) == 18 && cal.get(Calendar.MINUTE) == 0)) {
+                    while (cal.get(Calendar.HOUR_OF_DAY) < 17 || (cal.get(Calendar.HOUR_OF_DAY) == 17 && cal.get(Calendar.MINUTE) == 0)) {
                         horasDisponibles.add(cal.getTime());
                         cal.add(Calendar.MINUTE, 30);
 
@@ -141,7 +142,7 @@ public class HorasActivity extends AppCompatActivity {
                     cal.set(Calendar.SECOND, 0);
                     cal.set(Calendar.MILLISECOND, 0);
 
-                    while (cal.get(Calendar.HOUR_OF_DAY) < 18 || (cal.get(Calendar.HOUR_OF_DAY) == 18 && cal.get(Calendar.MINUTE) == 0)) {
+                    while (cal.get(Calendar.HOUR_OF_DAY) < 17 || (cal.get(Calendar.HOUR_OF_DAY) == 17 && cal.get(Calendar.MINUTE) == 0)) {
                         horasDisponibles.add(cal.getTime());
                         cal.add(Calendar.MINUTE, 30);
                     }
@@ -178,10 +179,13 @@ public class HorasActivity extends AppCompatActivity {
 
 
             botonDisponibles.setText(new SimpleDateFormat("HH:mm").format(hora));
+            binding.layoutBotones.addView(botonDisponibles);
+
 
             botonDisponibles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
 
                     // Agregar la hora a la lista de horas ocupadas
                     horasOcupadas.add(hora);
@@ -197,20 +201,25 @@ public class HorasActivity extends AppCompatActivity {
                     startActivity(intent);
 
                     // Actualizar el layout de botones
-                    binding.layoutHoras.removeView(v);
+                    binding.layoutBotones.removeView(v);
 
                     finish();
 
                 }
             });
 
-
-            binding.layoutHoras.addView(botonDisponibles);
+            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams1.setMargins(0, 0, 0, 20);
+            botonDisponibles.setLayoutParams(layoutParams1);
 
             GradientDrawable gd = new GradientDrawable();
             gd.setColor(getResources().getColor(R.color.yellow));
             gd.setStroke(10, getResources().getColor(R.color.white));
-            gd.setCornerRadius(10);
+            gd.setCornerRadius(70);
+
             botonDisponibles.setBackground(gd);
 
 

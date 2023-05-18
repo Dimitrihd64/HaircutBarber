@@ -2,6 +2,7 @@ package com.example.haircutbarber3.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.haircutbarber3.Firebase.FirebaseUtils;
 import com.example.haircutbarber3.Models.Cita;
 import com.example.haircutbarber3.R;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
@@ -23,10 +26,13 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
     private final int resource;
     private final List<Cita> citas;
 
+
     public CitasAdapter(Context context, int resource, List<Cita> citas) {
         this.context = context;
         this.resource = resource;
         this.citas = citas;
+
+
     }
 
     @NonNull
@@ -50,6 +56,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mostrarResumen(holder.getAdapterPosition()).show();
             }
         });
@@ -64,15 +71,29 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
         Button btEliminar = dialog.findViewById(R.id.btEliminar);
         TextView lbFecha = dialog.findViewById(R.id.lbFechaCita);
         TextView lbHora = dialog.findViewById(R.id.lbHoraCita);
+
+
         TextView lbServicio = dialog.findViewById(R.id.lbServicioCita);
         TextView lbPrecio = dialog.findViewById(R.id.lbPrecioCita);
 
+        String serviciosList = Arrays.toString(citas.get(adapterPosition).getServicios().toArray());
+        serviciosList = serviciosList.replaceAll("\\[|\\]", "");
 
         lbFecha.setText(citas.get(adapterPosition).getFecha());
         lbHora.setText(citas.get(adapterPosition).getHora());
+        lbServicio.setText(serviciosList);
 
-        lbPrecio.setText(String.valueOf(citas.get(adapterPosition).getPrecio()));
+        lbPrecio.setText(citas.get(adapterPosition).getPrecio() + " €");
 
+        String citaId = citas.get(adapterPosition).getId();
+
+        FirebaseUser user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
+
+        if (user.getEmail().equalsIgnoreCase("admin@haircutbarber.com")) {
+            btEliminar.setVisibility(View.VISIBLE);
+        } else {
+            btEliminar.setVisibility(View.INVISIBLE);
+        }
 
         btAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +101,23 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
                 dialog.dismiss();
             }
         });
+
         btEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Citassssssssssssssssssss", "onClick: CitasGlobaaaal" + citas);
+                for (Cita c : citas) {
+                    if (c.getId().equals(citaId)) {
+                        citas.remove(c);
+                        actualizarListaFirebase(citas);
+                        notifyDataSetChanged();
+                    }
+                }
 
-                citas.remove(adapterPosition);
-                notifyItemRemoved(adapterPosition);
-                actualizarListaFirebase(citas);
+
                 dialog.dismiss();
+
+
             }
         });
 

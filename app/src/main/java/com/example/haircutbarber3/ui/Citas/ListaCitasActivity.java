@@ -29,16 +29,17 @@ public class ListaCitasActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference citasRef;
     private CitasAdapter adapter;
-
+    private ArrayList<Cita> citasGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityListaCitasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        citasGlobal = new ArrayList<>();
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
         citasRef = FirebaseUtils.getDatabase().getReference().child("CitasList");
+
 
         citas = new ArrayList<>();
         adapter = new CitasAdapter(this, R.layout.cita_list_model, citas);

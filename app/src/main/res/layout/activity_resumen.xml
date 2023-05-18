@@ -191,7 +191,7 @@
         android:layout_marginBottom="64dp"
         android:background="@drawable/border"
         android:padding="15dp"
-        android:text="Tenga claro que si desea editar la cita despues de confirmar debera eliminarla y volverla a crear. "
+        android:text="Tenga claro que si desea eliminar la cita despues de confirmarla debera hablar con el peluquero."
         android:textAlignment="center"
         android:textColor="@color/design_default_color_error"
         app:layout_constraintBottom_toBottomOf="parent"

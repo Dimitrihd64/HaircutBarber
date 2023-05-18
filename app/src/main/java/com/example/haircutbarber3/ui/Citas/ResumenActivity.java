@@ -2,8 +2,8 @@ package com.example.haircutbarber3.ui.Citas;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class ResumenActivity extends AppCompatActivity {
@@ -57,9 +58,12 @@ public class ResumenActivity extends AppCompatActivity {
 
         Cita c = new Cita(Usuario, citaId, Nombre, horaFormat, Fecha, servicios, precioTotal);
 
+        String serviciosList = Arrays.toString(c.getServicios().toArray());
+        serviciosList = serviciosList.replaceAll("\\[|\\]", "");
+
         binding.lbFechaCita.setText(c.getFecha());
         binding.lbHoraCita.setText(c.getHora());
-        binding.lbServicioCita.setText(c.getServicios().toString());
+        binding.lbServicioCita.setText(serviciosList);
         binding.lbPrecioCita.setText(c.getPrecio() + " €");
 
         refCitas.addValueEventListener(new ValueEventListener() {
@@ -72,9 +76,6 @@ public class ResumenActivity extends AppCompatActivity {
                             };
                     citasList.addAll(snapshot.getValue(gtiCita));
 
-                    for (Cita c : citasList) {
-                        Log.d("Citas en FIREBASE", "onDataChange: " + citasList.size());
-                    }
 
                 }
             }
@@ -91,7 +92,7 @@ public class ResumenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 citasList.add(c);
                 refCitas.setValue(citasList);
-
+                Toast.makeText(ResumenActivity.this, "Cita añadida correctamente", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

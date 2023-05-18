@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">HaircutBarber</string>
+    <string name="app_name">Haircut Barber</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="open_nav">Drawer Open</string>
     <string name="close_nav">Drawer Close</string>
 </resources>

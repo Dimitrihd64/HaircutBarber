@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity  {
 
         ///la mierda de firebase va en los fragments
         comprobarEstado();
-        borradoDeCitas();
+
 
         //setSupportActionBar(binding.toolbar);
 
@@ -110,10 +111,15 @@ public class MainActivity extends AppCompatActivity  {
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.nav_citas:
-                        startActivity(new Intent(MainActivity.this, ListaCitasActivity.class));
-                        Toast.makeText(MainActivity.this, "Esto va tambien", Toast.LENGTH_SHORT).show();
-                        binding.drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
+                        if (user != null) {
+                            startActivity(new Intent(MainActivity.this, ListaCitasActivity.class));
+                            binding.drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
+                        } else {
+                            Toast.makeText(MainActivity.this, "Debes iniciar sesion", Toast.LENGTH_SHORT).show();
+                        }
+
+
                     case R.id.nav_login:
 
                         if (user != null) {
@@ -140,12 +146,9 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-    private void borradoDeCitas() {
-
-
-    }
-
     private void comprobarEstado() {
+        MenuItem menuItem = binding.navView.getMenu().findItem(R.id.nav_citas);
+        ImageView ivAvatar = binding.navView.getHeaderView(0).findViewById(R.id.ivAvatar);
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -162,13 +165,18 @@ public class MainActivity extends AppCompatActivity  {
                     LogIn.setTitle("Cerrar Sesion");
                     binding.fab.setEnabled(true);
 
+                    menuItem.setVisible(true);
+                    ivAvatar.setImageDrawable(getDrawable(R.drawable.logohb));
+
+
                 } else {
                     lbCorreo.setText(R.string.app_name);
                     LogIn.setIcon(R.drawable.baseline_login_24);
                     LogIn.setTitle("Iniciar Sesion");
                     binding.fab.setEnabled(false);
-                    Toast.makeText(MainActivity.this, "Iniacia sesion para añadir citas", Toast.LENGTH_SHORT).show();
-
+                    menuItem.setVisible(false);
+                    Toast.makeText(MainActivity.this, "Inicia sesion para añadir citas", Toast.LENGTH_SHORT).show();
+                    ivAvatar.setImageDrawable(getDrawable(R.drawable.avatardefault_92824));
                 }
             }
         };

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navHeader"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="176dp"
@@ -8,9 +9,9 @@
     android:background="@mipmap/headerbkg">
 
     <ImageView
+        android:id="@+id/ivAvatar"
         android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/avatardefault_92824" />
+        android:layout_height="80dp" />
     <TextView
         android:id="@+id/lbCorreoHeader"
         android:layout_width="wrap_content"

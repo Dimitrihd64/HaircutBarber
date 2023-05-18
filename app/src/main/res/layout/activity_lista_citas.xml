@@ -4,7 +4,39 @@
     android:layout_width="match_parent"
     android:background="@drawable/fondoblancolargo"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.Citas.ListaCitasActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/gray"
+        android:elevation="4dp"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:transitionGroup="false">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Mis Citas"
+                android:paddingTop="10dp"
+                android:paddingRight="13dp"
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/container"
