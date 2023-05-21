@@ -24,9 +24,11 @@ import com.example.haircutbarber3.databinding.ActivityMainBinding;
 import com.example.haircutbarber3.ui.Citas.FechaCitaActivity;
 import com.example.haircutbarber3.ui.Citas.ListaCitasActivity;
 import com.example.haircutbarber3.ui.Detalles.DetallesFragment;
+import com.example.haircutbarber3.ui.Info.InfoActivity;
 import com.example.haircutbarber3.ui.Novedades.NovedadesFragment;
 import com.example.haircutbarber3.ui.Servicios.CortesFragment;
 import com.example.haircutbarber3.ui.Servicios.ProductosFragment;
+import com.example.haircutbarber3.ui.Usuarios.ListaUsuariosActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -85,7 +87,6 @@ public class MainActivity extends AppCompatActivity  {
             switch (item.getItemId()){
                 case R.id.news:
                     replaceFragment(new NovedadesFragment());
-
                     break;
                 case R.id.details:
                     replaceFragment(new DetallesFragment());
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity  {
 
                 switch (item.getItemId()) {
                     case R.id.nav_settings:
-                        Toast.makeText(MainActivity.this, "Esto va tambien", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, ListaUsuariosActivity.class));
                         binding.drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.nav_citas:
@@ -118,7 +119,10 @@ public class MainActivity extends AppCompatActivity  {
                         } else {
                             Toast.makeText(MainActivity.this, "Debes iniciar sesion", Toast.LENGTH_SHORT).show();
                         }
-
+                    case R.id.nav_info:
+                        startActivity(new Intent(MainActivity.this, InfoActivity.class));
+                        binding.drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
 
                     case R.id.nav_login:
 

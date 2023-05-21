@@ -18,6 +18,7 @@ import com.example.haircutbarber3.R;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -106,11 +107,12 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
             @Override
             public void onClick(View v) {
                 Log.d("Citassssssssssssssssssss", "onClick: CitasGlobaaaal" + citas);
-                for (Cita c : citas) {
+                List<Cita> citasCopy = new ArrayList<>(citas);
+                for (Cita c : citasCopy) {
                     if (c.getId().equals(citaId)) {
                         citas.remove(c);
-                        actualizarListaFirebase(citas);
                         notifyDataSetChanged();
+                        actualizarListaFirebase(citas);
                     }
                 }
 

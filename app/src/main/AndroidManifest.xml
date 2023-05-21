@@ -25,7 +25,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB2mv4aauBenPcZfzJEs-AlNt4wlVmcYZs" />
+            android:value="AIzaSyBadtg1snrqLIAiaowOUsGLgQrJs_Tsyp0" />
 
         <activity
             android:name=".ui.Citas.ListaCitasActivity"
