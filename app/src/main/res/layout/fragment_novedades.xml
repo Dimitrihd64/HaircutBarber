@@ -123,16 +123,16 @@
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:elevation="10dp"
+        android:src="@drawable/sombrilla"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.474"
-        tools:src="@drawable/sombrilla" />
+        app:layout_constraintVertical_bias="0.474" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
@@ -163,28 +163,28 @@
 
     <ImageView
         android:id="@+id/imageView14"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:elevation="10dp"
+        android:src="@drawable/navidad"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.855"
-        tools:src="@drawable/navidad" />
+        app:layout_constraintVertical_bias="0.829" />
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:elevation="10dp"
+        android:src="@drawable/primercorte"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.124"
-        tools:src="@drawable/primercorte" />
+        app:layout_constraintVertical_bias="0.124" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
