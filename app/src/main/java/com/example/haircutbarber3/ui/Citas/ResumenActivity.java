@@ -41,7 +41,7 @@ public class ResumenActivity extends AppCompatActivity {
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
         refCitas = FirebaseUtils.getDatabase().getReference().child("CitasList");
 
-
+        //Bundle info
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         int Dia = bundle.getInt("Dia");
@@ -50,22 +50,30 @@ public class ResumenActivity extends AppCompatActivity {
         Date Hora = (Date) bundle.getSerializable("Hora");
         ArrayList<String> servicios = bundle.getStringArrayList("Servicios");
         double precioTotal = bundle.getDouble("Precio");
+
+        //se almacena en variables toda la info de la cita
         String horaFormat = new SimpleDateFormat("HH:mm").format(Hora);
         String Fecha = Dia + "-" + Mes + "-" + Año;
         String Nombre = "Cita " + Fecha;
         String Usuario = user.getEmail();
+
+        //se le da un id a la cita
         String citaId = refCitas.push().getKey();
 
+        //se crea el objeto cita
         Cita c = new Cita(Usuario, citaId, Nombre, horaFormat, Fecha, servicios, precioTotal);
+
 
         String serviciosList = Arrays.toString(c.getServicios().toArray());
         serviciosList = serviciosList.replaceAll("\\[|\\]", "");
 
+        //Se muestra en un resumen la informacion de la cita
         binding.lbFechaCita.setText(c.getFecha());
         binding.lbHoraCita.setText(c.getHora());
         binding.lbServicioCita.setText(serviciosList);
         binding.lbPrecioCita.setText(c.getPrecio() + " €");
 
+        //Almacenamos la lista de citas de firebase en un array
         refCitas.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -86,7 +94,7 @@ public class ResumenActivity extends AppCompatActivity {
             }
         });
 
-
+        //en el boton Reservar se añadira la cita al Array de citas y se guardara la lista completa en Firebase
         binding.btReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

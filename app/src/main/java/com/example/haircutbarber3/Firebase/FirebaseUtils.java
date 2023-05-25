@@ -3,12 +3,11 @@ package com.example.haircutbarber3.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
-
 public class FirebaseUtils {
     private static FirebaseAuth mAuth;
     private static FirebaseDatabase mDatabase;
 
+    //Configuracion principal de Firebase Realtime database y Firebase Auth para todo el proyecto
     public static synchronized FirebaseAuth getFirebaseAuth() {
         if (mAuth == null) {
             mAuth = FirebaseAuth.getInstance();
@@ -23,11 +22,4 @@ public class FirebaseUtils {
         return mDatabase;
     }
 
-    public void obtenerCorreosElectronicosUsuarios(final OnEmailsObtenidosListener listener) {
-
-    }
-
-    public interface OnEmailsObtenidosListener {
-        void onEmailsObtenidos(List<String> emails);
-    }
 }

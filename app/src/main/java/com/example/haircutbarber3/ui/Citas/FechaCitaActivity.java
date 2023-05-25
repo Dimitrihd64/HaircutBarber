@@ -30,6 +30,7 @@ public class FechaCitaActivity extends AppCompatActivity {
 
         citasList = new ArrayList<>();
 
+        //cuando selecione una fecha y acepte se comprobara la fecha si es posterior al dia actual
         binding.btSaveDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +48,7 @@ public class FechaCitaActivity extends AppCompatActivity {
 
     }
 
+    //Si la fecha es correcta se enviara juto con un bundle a la actividad HorasActivity
     private void comprobarFecha(int dia, int mes, int año) {
         Calendar fechaActual = Calendar.getInstance();
         Calendar fechaSeleccionada = Calendar.getInstance();

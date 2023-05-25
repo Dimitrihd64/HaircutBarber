@@ -36,19 +36,26 @@ public class ListaCitasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityListaCitasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        citasGlobal = new ArrayList<>();
+
+        //Firebase config
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
         citasRef = FirebaseUtils.getDatabase().getReference().child("CitasList");
 
-
+        //Arrays
         citas = new ArrayList<>();
+        citasGlobal = new ArrayList<>();
+
+        //Adapter config
         adapter = new CitasAdapter(this, R.layout.cita_list_model, citas);
         binding.container.setAdapter(adapter);
         binding.container.setLayoutManager(new LinearLayoutManager(this));
 
         String userEmail = FirebaseUtils.getFirebaseAuth().getCurrentUser().getEmail();
 
+        //Dependiendo del usuario que ha iniciado sesion tendra accesso a ver la lista completa
+        //de citas de todos los usuarios o del mismo usuario solamente
         if (userEmail.equalsIgnoreCase("admin@haircutbarber.com")) {
+            //admin
             citasRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,6 +75,7 @@ public class ListaCitasActivity extends AppCompatActivity {
                 }
             });
         } else {
+            //usuario normal
             citasRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,6 +107,8 @@ public class ListaCitasActivity extends AppCompatActivity {
 
     }
 
+
+    //Todas las citas estaran ordenadas por fecha y hora
     private void ordenarCitas(List<Cita> citas) {
         Collections.sort(citas, new Comparator<Cita>() {
             @Override
@@ -111,8 +121,6 @@ public class ListaCitasActivity extends AppCompatActivity {
             }
         });
         adapter.notifyItemRangeChanged(0, citas.size());
-
-
     }
 
 }

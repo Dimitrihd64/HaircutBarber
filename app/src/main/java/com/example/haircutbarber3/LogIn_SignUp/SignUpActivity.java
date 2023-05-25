@@ -1,7 +1,6 @@
 package com.example.haircutbarber3.LogIn_SignUp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         //mAuth = FirebaseAuth.getInstance();
         mAuth = FirebaseUtils.getFirebaseAuth();
-
+        //Boton SignUp
         binding.signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    //Metodo que dará de alta al nuevo usuario
     private void doSignUp(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -56,7 +56,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(SignUpActivity.this, "Error en el Registro", Toast.LENGTH_SHORT).show();
-                    Log.d("ERROR", task.getException().getLocalizedMessage());
                 }
             }
         });

@@ -27,7 +27,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
     private final int resource;
     private final List<Cita> citas;
 
-
+    //Adapter para mostrar las citas en la actividad ListaCitasActivity
     public CitasAdapter(Context context, int resource, List<Cita> citas) {
         this.context = context;
         this.resource = resource;

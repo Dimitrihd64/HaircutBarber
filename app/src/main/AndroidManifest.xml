@@ -19,9 +19,6 @@
         <activity
             android:name=".ui.Info.InfoActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.Usuarios.ListaUsuariosActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

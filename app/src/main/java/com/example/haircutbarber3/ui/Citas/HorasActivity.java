@@ -46,12 +46,17 @@ public class HorasActivity extends AppCompatActivity {
 
         binding = ActivityHorasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //Firebase
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
         citasRef = FirebaseUtils.getDatabase().getReference().child("CitasList");
+
+        //Intent Bundle Info
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String Fecha = bundle.getString("Fecha");
 
+        //Arraylist
         citas = new ArrayList<>();
         horasDisponibles = new ArrayList<>();
         horasOcupadas = new ArrayList<>();
@@ -66,9 +71,7 @@ public class HorasActivity extends AppCompatActivity {
     }
 
     private void crearHoras(String Fecha) throws ParseException {
-
-        //pruebaFirebase
-        ///*
+        //traemos la lista de citas creadas en firebase
         citasRef.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -79,7 +82,7 @@ public class HorasActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     citas.clear();
                     citas.addAll(snapshot.getValue(gtiCita));
-
+                    //tras recoger las citas generamos por codigo un sistema de horas automatico
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                     Date fechaDia = null;
                     try {
@@ -94,11 +97,13 @@ public class HorasActivity extends AppCompatActivity {
                     cal.set(Calendar.SECOND, 0);
                     cal.set(Calendar.MILLISECOND, 0);
 
-                    // Lista predefinida de horas disponibles de 12:00 a 17:30 con intervalos de 30 minutos
+                    // Lista predefinida de horas disponibles de 12:00 a 17:00con intervalos de 30 minutos
                     while (cal.get(Calendar.HOUR_OF_DAY) < 17 || (cal.get(Calendar.HOUR_OF_DAY) == 17 && cal.get(Calendar.MINUTE) == 0)) {
                         horasDisponibles.add(cal.getTime());
                         cal.add(Calendar.MINUTE, 30);
 
+                        //comparamos las horas de las citas dependiendo del dia seleccionamos y
+                        //clasificamos en dos arrays las horas ocupadas y las horas disponibles
                         for (Cita cita : citas) {
                             Date horaCita = null;
                             try {
@@ -128,6 +133,7 @@ public class HorasActivity extends AppCompatActivity {
 
                     crearBotones(dia, mes, año);
                 } else {
+                    //si no hay citas se procede a rellenar simplemente las horas disponibles en el array
                     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                     Date fechaDia = null;
                     try {
@@ -164,30 +170,24 @@ public class HorasActivity extends AppCompatActivity {
             }
         });
 
-
-//*/
-        //fin prueba firebase
-        /*
-
-         */
     }
 
     private void crearBotones(int dia, int mes, int año) {
 
+        //por cada hora disponible se creara un boton con la hora como texto
         for (final Date hora : horasDisponibles) {
-            Button botonDisponibles = new Button(this);
 
+            Button botonDisponibles = new Button(this);
 
             botonDisponibles.setText(new SimpleDateFormat("HH:mm").format(hora));
             binding.layoutBotones.addView(botonDisponibles);
 
-
+            //si el boton es seleccionado la hora se almacenara en las horas ocupadas
+            //y se enviara en un intent Bundle toda la info a la actividad TipoServicioActivity
             botonDisponibles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-
-                    // Agregar la hora a la lista de horas ocupadas
                     horasOcupadas.add(hora);
                     horasDisponibles.remove(hora);
 
@@ -200,7 +200,6 @@ public class HorasActivity extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
 
-                    // Actualizar el layout de botones
                     binding.layoutBotones.removeView(v);
 
                     finish();
@@ -208,6 +207,7 @@ public class HorasActivity extends AppCompatActivity {
                 }
             });
 
+            //Estilos de los botones
             LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT

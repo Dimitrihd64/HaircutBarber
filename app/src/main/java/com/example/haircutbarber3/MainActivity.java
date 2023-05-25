@@ -28,7 +28,6 @@ import com.example.haircutbarber3.ui.Info.InfoActivity;
 import com.example.haircutbarber3.ui.Novedades.NovedadesFragment;
 import com.example.haircutbarber3.ui.Servicios.CortesFragment;
 import com.example.haircutbarber3.ui.Servicios.ProductosFragment;
-import com.example.haircutbarber3.ui.Usuarios.ListaUsuariosActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,28 +59,21 @@ public class MainActivity extends AppCompatActivity  {
         citasList = new ArrayList<>();
 
         //Firebase config
-
-
         userAuth = FirebaseUtils.getFirebaseAuth();
-
         user = FirebaseUtils.getFirebaseAuth().getCurrentUser();
-
         database = FirebaseUtils.getDatabase();
-
-
-        ///la mierda de firebase va en los fragments
+        //comprobamos el estado del user (si hay logIn o no)
         comprobarEstado();
 
-
-        //setSupportActionBar(binding.toolbar);
-
+        //Config Menu lateral
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.toolbar, R.string.open_nav, R.string.close_nav);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-
+        //Cambiamos la pantalla de inicio al fragment Novedades
         replaceFragment(new NovedadesFragment());
 
+        //Definimos que fragment se mostrara en cada boton del menu de navegación
         binding.bottomNavigationView.setBackground(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -102,15 +94,15 @@ public class MainActivity extends AppCompatActivity  {
             return true;
         });
 
+
+        //Config interno para el menu lateral y
+        //definimos que actividad se mostrara en cada boton del menu lateral
+
         binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()) {
-                    case R.id.nav_settings:
-                        startActivity(new Intent(MainActivity.this, ListaUsuariosActivity.class));
-                        binding.drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
                     case R.id.nav_citas:
                         if (user != null) {
                             startActivity(new Intent(MainActivity.this, ListaCitasActivity.class));
@@ -125,31 +117,27 @@ public class MainActivity extends AppCompatActivity  {
                         break;
 
                     case R.id.nav_login:
-
                         if (user != null) {
                             FirebaseUtils.getFirebaseAuth().signOut();
                         } else {
                             startActivity(new Intent(MainActivity.this, LogInActivity.class));
                         }
                 }
-
-
                 return true;
             }
         });
 
-
+        //Botón principal donde se accederá a la creación de citas
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MainActivity.this, FechaCitaActivity.class));
-
-
             }
         });
     }
 
+    //Aquí se comprueba el LogIn y se hacen los cambios
+    //necesarios visuales y funcionales dependiendo de si esta o no Logueado
     private void comprobarEstado() {
         MenuItem menuItem = binding.navView.getMenu().findItem(R.id.nav_citas);
         ImageView ivAvatar = binding.navView.getHeaderView(0).findViewById(R.id.ivAvatar);
@@ -168,9 +156,8 @@ public class MainActivity extends AppCompatActivity  {
                     LogIn.setIcon(R.drawable.baseline_logout_24);
                     LogIn.setTitle("Cerrar Sesion");
                     binding.fab.setEnabled(true);
-
                     menuItem.setVisible(true);
-                    ivAvatar.setImageDrawable(getDrawable(R.drawable.logohb));
+                    ivAvatar.setImageDrawable(getDrawable(R.drawable.logo));
 
 
                 } else {
@@ -188,7 +175,7 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
+    //funcion para remplazar los fragments
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

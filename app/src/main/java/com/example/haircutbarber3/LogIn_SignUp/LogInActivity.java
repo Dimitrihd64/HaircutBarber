@@ -32,7 +32,7 @@ public class LogInActivity extends AppCompatActivity {
 
         mAuth = FirebaseUtils.getFirebaseAuth();
 
-
+        //Boton LogIn
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,12 +46,9 @@ public class LogInActivity extends AppCompatActivity {
                 }
             }
         });
-        binding.forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(LogInActivity.this, "Contraseña olvidada", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+
+        //si no tiene una cuenta registrada podra crearla
         binding.signUpTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,10 +59,8 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    public Boolean isLogin() {
-        return user != null;
-    }
 
+    //Metodo que iniciara sesion con las credenciales
     private void doLogIn(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password)

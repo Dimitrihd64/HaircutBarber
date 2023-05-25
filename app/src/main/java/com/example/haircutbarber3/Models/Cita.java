@@ -2,7 +2,7 @@ package com.example.haircutbarber3.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+// Objeto Cita
 public class Cita implements Serializable {
     private String Usuario;
     private String Id;
