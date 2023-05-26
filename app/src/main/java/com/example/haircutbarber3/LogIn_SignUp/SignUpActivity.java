@@ -27,8 +27,17 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //mAuth = FirebaseAuth.getInstance();
+        //firebase config
         mAuth = FirebaseUtils.getFirebaseAuth();
+
+        binding.btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         //Boton SignUp
         binding.signupButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -73,6 +73,13 @@ public class ResumenActivity extends AppCompatActivity {
         binding.lbServicioCita.setText(serviciosList);
         binding.lbPrecioCita.setText(c.getPrecio() + " €");
 
+        binding.btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //Almacenamos la lista de citas de firebase en un array
         refCitas.addValueEventListener(new ValueEventListener() {
             @Override

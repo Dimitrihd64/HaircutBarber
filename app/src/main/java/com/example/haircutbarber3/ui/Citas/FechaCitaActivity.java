@@ -44,6 +44,12 @@ public class FechaCitaActivity extends AppCompatActivity {
 
             }
         });
+        binding.btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
     }

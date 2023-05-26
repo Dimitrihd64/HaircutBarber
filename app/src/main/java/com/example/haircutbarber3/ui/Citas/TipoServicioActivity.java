@@ -38,9 +38,15 @@ public class TipoServicioActivity extends AppCompatActivity {
         binding.cbLavado.setEnabled(false);
         preciosCheckbox(Dia, Mes, Año, Hora);
 
+        binding.btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
-
+    //se establece un precio  cada servicio y se almacena en un array
     private void preciosCheckbox(int Dia, int Mes, int Año, Date Hora) {
 
         double precioCorteAdulto = 10.0, precioCorteNiño = 8.0, precioPeloYBarba = 15.0, precioBarba = 7.0, precioTinte = 30.0, precioPermanente = 40.0, precioLavado = 3.0;
@@ -89,7 +95,7 @@ public class TipoServicioActivity extends AppCompatActivity {
                 bundle.putSerializable("Hora", Hora);
                 bundle.putDouble("Precio", precioTotal);
                 intent.putExtras(bundle);
-
+                //si la lista esta vacia no podra acceder a la confirmacion de la cita
                 if (productosList.isEmpty()) {
                     Toast.makeText(TipoServicioActivity.this, "Debes escojer al menos un servicio", Toast.LENGTH_SHORT).show();
                 } else {
@@ -107,7 +113,7 @@ public class TipoServicioActivity extends AppCompatActivity {
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
-
+        //condiciones de los servicios
         binding.cbBarba.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -27,6 +27,7 @@ public class DetallesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detalles, container, false);
 
+        //configuracion del mapa de google
         FragmentManager fragmentManager = getChildFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.map_fragment);
         if (mapFragment != null) {

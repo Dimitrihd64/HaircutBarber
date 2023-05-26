@@ -1,6 +1,7 @@
 package com.example.haircutbarber3.ui.Citas;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,7 +104,12 @@ public class ListaCitasActivity extends AppCompatActivity {
                 }
             });
         }
-
+        binding.btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

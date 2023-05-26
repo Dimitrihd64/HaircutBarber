@@ -57,7 +57,6 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.CitaVH> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mostrarResumen(holder.getAdapterPosition()).show();
             }
         });
